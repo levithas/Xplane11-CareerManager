@@ -4,7 +4,7 @@ if not SUPPORTS_FLOATING_WINDOWS then
     return
 end
 
-dataref("FUEL_xp_fuel_akt", "sim/flightmodel/weight/m_fuel_total")
+dataref("FUEL_xp_fuel", "sim/flightmodel/weight/m_fuel_total")
 dataref("FUEL_xp_fuel_max", "sim/aircraft/weight/acf_m_fuel_tot")
 dataref("FUEL_xp_groundspeed", "sim/flightmodel/position/groundspeed")
 dataref("FUEL_xp_eng_count", "sim/aircraft/engine/acf_num_engines")
@@ -14,7 +14,7 @@ dataref("xp_num_engines", "sim/aircraft/engine/acf_num_engines")
 dataref("FUEL_xp_fuel_1", "sim/flightmodel/weight/m_fuel1", "writable")
 dataref("FUEL_xp_fuel_2", "sim/flightmodel/weight/m_fuel2", "writable")
 dataref("FUEL_xp_fuel_3", "sim/flightmodel/weight/m_fuel3", "writable")
-dataref("FUEL_xp_fuel", "sim/flightmodel/weight/m_fuel_total", "writable")
+-- dataref("FUEL_xp_fuel", "sim/flightmodel/weight/m_fuel_total", "writable")
 dataref("xp_freight_mass", "sim/flightmodel/weight/m_fixed", "writeable")
 
 dataref("xp_groundspeed", "sim/flightmodel2/position/groundspeed")
