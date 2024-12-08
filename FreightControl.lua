@@ -234,10 +234,35 @@ function printAirportRefInfo(navRef)
     local outType, airportLatitude, airportLongitude, outHeight, outFrequency, outHeading, outID, outName = XPLMGetNavAidInfo(navRef)
     imgui.TextUnformatted("Name: " .. outName)
     imgui.TextUnformatted("ID: " .. outID)
-    imgui.TextUnformatted("Heading: " .. outHeading)
+    local heading = getHeadingToAirport(airportLongitude, airportLatitude, LONGITUDE, LATITUDE)
+    imgui.TextUnformatted("Heading: " .. string.format("%.1f", heading) .. "°")
     local distance = getDistanceFromLatLonInKm(LATITUDE, LONGITUDE, airportLatitude, airportLongitude)
     imgui.TextUnformatted("Distance: " .. string.format("%.2f", distance) .. " km")
 end
+
+function getHeadingToAirport(airportLong, airportLat, long, lat)
+    local function deg_to_rad(deg)
+    	return deg * math.pi / 180
+    end
+    
+    local deltaLongitude = deg_to_rad(airportLong - long)
+    local lat1 = deg_to_rad(lat)
+    local lat2 = deg_to_rad(airportLat)
+    
+    local y = math.sin(deltaLongitude) * math.cos(lat2)
+    local x = math.cos(lat1) * math.sin(lat2) - math.sin(lat1) * math.cos(lat2) * math.cos(deltaLongitude)
+    
+    local heading = math.atan2(y, x)
+    heading = heading * 180 / math.pi
+    
+    if heading < 0 then
+    	heading = heading + 360
+    end
+    
+    return heading
+end
+
+
 function getDistanceToAirport(navRef)
     local outType, airportLatitude, airportLongitude, outHeight, outFrequency, outHeading, outID, outName = XPLMGetNavAidInfo(navRef)
     return getDistanceFromLatLonInKm(LATITUDE, LONGITUDE, airportLatitude, airportLongitude)
